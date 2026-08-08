@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b0b0e">
+  <title>Lumnar Studio — Livia Almeida | Landing Pages & Digital Design</title>
+  <meta name="description" content="Portfólio de Lumnar Studio — Livia Almeida. Landing pages, direção visual e experiências digitais responsivas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0a0a0d;
+      --bg-2:#0f0f13;
+      --panel:#121218;
+      --panel-2:#17171d;
+      --ink:#f4f1ea;
+      --muted:#99959f;
+      --soft:#c7c3cb;
+      --line:rgba(255,255,255,.10);
+      --line-strong:rgba(255,255,255,.17);
+      --acid:#e5ff72;
+      --violet:#a68bff;
+      --max:1320px;
+      --radius:30px;
+      --shadow:0 35px 100px rgba(0,0,0,.42);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:"Manrope",system-ui,sans-serif;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    img{max-width:100%;display:block}
+    ::selection{background:var(--acid);color:#0a0a0d}
+    .wrap{width:min(var(--max),calc(100% - 48px));margin:auto}
+    .noise{
+      position:fixed;inset:0;pointer-events:none;z-index:200;opacity:.025;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
+    }
+    .grid-bg{
+      position:fixed;inset:0;pointer-events:none;opacity:.24;
+      background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+      background-size:74px 74px;
+      mask-image:linear-gradient(to bottom,black,transparent 78%);
+    }
+    .orb{
+      position:fixed;width:560px;height:560px;border-radius:50%;pointer-events:none;z-index:-1;
+      right:-240px;top:120px;background:radial-gradient(circle at 35% 35%,rgba(229,255,114,.17),rgba(166,139,255,.12) 38%,transparent 70%);
+      filter:blur(18px);
+    }
+
+    header{
+      position:fixed;left:0;right:0;top:0;z-index:80;
+      padding:18px 0;transition:.3s ease;
+    }
+    header.scrolled{
+      background:rgba(10,10,13,.78);
+      backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--line);
+    }
+    nav{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:38px;height:38px}
+    .brand-name{font-size:.94rem;font-weight:800;letter-spacing:-.035em;line-height:1.05}
+    .brand-name small{
+      display:block;margin-top:4px;color:#716d78;
+      font:500 .57rem "DM Mono",monospace;letter-spacing:.14em;text-transform:uppercase;
+    }
+    .nav-center{display:flex;align-items:center;gap:28px;color:#9f9aa6;font-size:.84rem}
+    .nav-center a{transition:.2s}
+    .nav-center a:hover{color:white}
+    .nav-right{display:flex;align-items:center;gap:14px}
+    .availability{display:flex;align-items:center;gap:8px;color:#9d98a3;font:500 .69rem "DM Mono";text-transform:uppercase;letter-spacing:.08em}
+    .availability:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--acid);box-shadow:0 0 18px rgba(229,255,114,.75)}
+    .nav-cta{
+      display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border:1px solid var(--line-strong);border-radius:12px;
+      color:#eeeaf0;font-size:.8rem;font-weight:700;background:rgba(255,255,255,.035);
+    }
+    .menu{display:none;background:transparent;color:white;border:1px solid var(--line);width:42px;height:42px;border-radius:12px}
+
+    .hero{
+      min-height:100svh;padding:160px 0 70px;display:flex;align-items:center;position:relative;overflow:hidden;
+    }
+    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:72px;align-items:center}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;color:#a5a0ac;
+      font:500 .72rem "DM Mono";letter-spacing:.1em;text-transform:uppercase;
+    }
+    .eyebrow i{display:block;width:26px;height:1px;background:var(--acid)}
+    h1,h2,h3{margin:0;font-family:"Manrope",sans-serif;letter-spacing:-.065em}
+    h1{font-size:clamp(4rem,8.2vw,8.8rem);line-height:.86;font-weight:700;max-width:970px}
+    h1 .outline{-webkit-text-stroke:1px rgba(244,241,234,.58);color:transparent}
+    .hero h1{margin-top:28px}
+    .hero-sub{
+      display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-top:36px;max-width:940px
+    }
+    .hero-sub p{max-width:580px;color:#aaa5b0;font-size:1.03rem;line-height:1.7;margin:0}
+    .hero-link{
+      flex:0 0 auto;width:116px;height:116px;border-radius:50%;display:grid;place-items:center;text-align:center;
+      background:var(--acid);color:#111116;font-size:.75rem;font-weight:800;line-height:1.25;transition:.35s;
+      box-shadow:0 18px 55px rgba(229,255,114,.10);
+    }
+    .hero-link:hover{transform:rotate(-8deg) scale(1.04)}
+
+    .hero-art{position:relative;display:grid;place-items:center;min-height:560px}
+    .logo-orbit{
+      width:min(520px,90%);aspect-ratio:1;border-radius:50%;
+      border:1px solid rgba(255,255,255,.1);position:relative;display:grid;place-items:center;
+      background:radial-gradient(circle at 45% 42%,rgba(255,255,255,.06),rgba(255,255,255,.012) 58%,transparent 60%);
+    }
+    .logo-orbit:before,.logo-orbit:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.07)}
+    .logo-orbit:before{inset:44px}
+    .logo-orbit:after{inset:100px;border-style:dashed;animation:spin 24s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .hero-mark{width:190px;height:190px;filter:drop-shadow(0 24px 55px rgba(0,0,0,.4));animation:float 6s ease-in-out infinite}
+    @keyframes float{50%{transform:translateY(-10px) rotate(2deg)}}
+    .orbit-label{
+      position:absolute;padding:10px 14px;border-radius:999px;background:#111117;border:1px solid var(--line);
+      color:#aaa5b0;font:500 .65rem "DM Mono";letter-spacing:.06em;text-transform:uppercase;
+    }
+    .orbit-label.one{top:58px;right:-8px}
+    .orbit-label.two{bottom:76px;left:-28px}
+    .orbit-dot{position:absolute;width:14px;height:14px;background:var(--acid);border-radius:50%;top:34%;left:3%;box-shadow:0 0 30px rgba(229,255,114,.7)}
+
+    .hero-footer{
+      position:absolute;left:0;right:0;bottom:28px;
+    }
+    .hero-footer-row{display:flex;justify-content:space-between;align-items:center;color:#65616b;font:500 .65rem "DM Mono";letter-spacing:.1em;text-transform:uppercase}
+    .scroll-cue{display:flex;align-items:center;gap:10px}.scroll-cue:before{content:"";width:34px;height:1px;background:#625e67}
+
+    .marquee{
+      overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#0d0d10;
+    }
+    .marquee-track{
+      width:max-content;display:flex;gap:46px;padding:18px 0;animation:marquee 30s linear infinite;
+      color:#817c88;font:500 .69rem "DM Mono";text-transform:uppercase;letter-spacing:.11em;
+    }
+    .marquee-track b{color:var(--acid);font-weight:500}
+    @keyframes marquee{to{transform:translateX(-50%)}}
+
+    section{padding:130px 0}
+    .section-head{
+      display:grid;grid-template-columns:.78fr 1.22fr;gap:70px;margin-bottom:72px;align-items:end;
+    }
+    .section-kicker{font:500 .68rem "DM Mono";letter-spacing:.12em;color:#77727e;text-transform:uppercase}
+    .section-title{font-size:clamp(3rem,6.4vw,6.7rem);line-height:.92;font-weight:600}
+    .section-title .accent{color:var(--acid)}
+    .section-intro{max-width:540px;color:#9c97a3;line-height:1.75;margin:20px 0 0}
+
+
+    .services{padding-bottom:100px}
+    .services-grid{
+      display:grid;grid-template-columns:repeat(12,1fr);gap:14px;
+    }
+    .service-feature{
+      grid-column:span 7;grid-row:span 2;min-height:620px;padding:30px;border:1px solid var(--line);
+      border-radius:28px;background:
+        radial-gradient(circle at 85% 15%,rgba(166,139,255,.12),transparent 30%),
+        linear-gradient(145deg,#14141a,#0f0f13);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;
+    }
+    .service-card{
+      grid-column:span 5;min-height:303px;padding:28px;border:1px solid var(--line);border-radius:26px;
+      background:linear-gradient(155deg,rgba(255,255,255,.038),rgba(255,255,255,.008));
+      position:relative;overflow:hidden;transition:.35s;
+    }
+    .service-card:hover{transform:translateY(-5px);border-color:rgba(229,255,114,.22)}
+    .service-card:after{
+      content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-100px;bottom:-100px;background:rgba(166,139,255,.09)
+    }
+    .service-top{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .service-num{font:500 .62rem "DM Mono";color:#6b6670}
+    .service-pill{padding:6px 9px;border-radius:999px;border:1px solid var(--line);font:500 .56rem "DM Mono";letter-spacing:.08em;color:#817c86}
+    .service-feature h3,.service-card h3{font-size:clamp(1.8rem,3vw,3rem);letter-spacing:-.055em}
+    .service-feature>div:nth-child(2) p{max-width:570px;color:#8e8994;line-height:1.7}
+    .service-icon{margin:38px 0 28px;color:var(--acid);font-size:2rem}
+    .service-card p{color:#8b8691;line-height:1.65;max-width:470px}
+    .service-card a,.service-stack{position:absolute;left:28px;bottom:26px;color:#bab5bf;font:500 .66rem "DM Mono";letter-spacing:.05em;text-transform:uppercase}
+    .service-card a{color:var(--acid)}
+    .coming-preview{margin-top:26px;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#0c0c10}
+    .coming-bar{height:42px;display:grid;grid-template-columns:70px 1fr;align-items:center;padding:0 14px;border-bottom:1px solid var(--line);color:#5f5a64;font:400 .54rem "DM Mono"}
+    .coming-dots{display:flex;gap:5px}.coming-dots i{width:6px;height:6px;border-radius:50%;background:#36343a}.coming-dots i:first-child{background:var(--acid)}
+    .coming-screen{min-height:250px;padding:34px;display:flex;flex-direction:column;justify-content:center;background:
+      radial-gradient(circle at 78% 20%,rgba(229,255,114,.12),transparent 25%),
+      radial-gradient(circle at 15% 90%,rgba(166,139,255,.14),transparent 30%),
+      #101015}
+    .coming-kicker{font:500 .57rem "DM Mono";letter-spacing:.11em;color:#78737d}
+    .coming-screen strong{font-size:clamp(2.5rem,4.8vw,4.8rem);line-height:.88;letter-spacing:-.07em;margin:18px 0 24px}
+    .coming-line{height:1px;width:90px;background:var(--acid);margin-bottom:18px}
+    .coming-screen small{color:#706b75;font:500 .58rem "DM Mono";letter-spacing:.05em;text-transform:uppercase}
+
+    .works{padding-bottom:90px}
+    .project{
+      display:grid;grid-template-columns:.75fr 1.25fr;gap:58px;align-items:center;
+      padding:72px 0;border-top:1px solid var(--line);position:relative;
+    }
+    .project:last-child{border-bottom:1px solid var(--line)}
+    .project:nth-child(even){grid-template-columns:1.25fr .75fr}
+    .project:nth-child(even) .project-copy{order:2}
+    .project:nth-child(even) .browser{order:1}
+    .project-index{font:500 .68rem "DM Mono";color:var(--project-accent);margin-bottom:48px}
+    .project-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+    .project-meta span{
+      padding:7px 10px;border:1px solid var(--line);border-radius:999px;color:#817d87;
+      font:500 .62rem "DM Mono";letter-spacing:.06em;text-transform:uppercase;
+    }
+    .project h3{font-size:clamp(2.7rem,4.8vw,5.3rem);line-height:.94;font-weight:600}
+    .project-copy p{max-width:500px;color:#97929d;line-height:1.75;margin:22px 0 26px}
+    .project-link{
+      display:inline-flex;align-items:center;gap:12px;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,.22);
+      color:#dedbe2;font-size:.84rem;font-weight:700;
+    }
+    .project-link span{color:var(--project-accent);font-size:1rem;transition:.2s}
+    .project-link:hover span{transform:translate(3px,-3px)}
+    .browser{
+      min-width:0;border:1px solid var(--line-strong);border-radius:22px;overflow:hidden;background:#15151a;
+      box-shadow:var(--shadow);transition:.45s cubic-bezier(.2,.8,.2,1);position:relative;
+    }
+    .browser:hover{transform:translateY(-8px) rotate(-.35deg);border-color:color-mix(in srgb,var(--project-accent) 45%, transparent)}
+    .browser-bar{height:48px;display:grid;grid-template-columns:90px 1fr 90px;align-items:center;border-bottom:1px solid var(--line);padding:0 14px}
+    .dots{display:flex;gap:6px}.dots i{width:7px;height:7px;border-radius:50%;background:#3d3b42}.dots i:first-child{background:var(--project-accent)}
+    .address{
+      justify-self:center;max-width:72%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#66616b;
+      font:400 .57rem "DM Mono";
+    }
+    .open-icon{justify-self:end;color:#77717d;font-size:.8rem}
+    .screen{height:500px;overflow:hidden;position:relative;background:linear-gradient(145deg,#181820,#0e0e12)}
+    .screen iframe{
+      position:absolute;left:0;top:0;width:200%;height:200%;border:0;transform:scale(.5);transform-origin:0 0;
+      pointer-events:none;background:white;
+    }
+    .screen:after{
+      content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 75%,rgba(0,0,0,.14));pointer-events:none;
+    }
+    .screen-shine{
+      position:absolute;inset:0;pointer-events:none;opacity:0;transition:.35s;
+      background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.07) 46%,transparent 62%);
+      transform:translateX(-80%);
+    }
+    .browser:hover .screen-shine{opacity:1;transform:translateX(80%);transition:transform .9s,opacity .3s}
+    .view-live{
+      position:absolute;right:18px;bottom:18px;z-index:3;padding:10px 12px;border-radius:10px;
+      background:rgba(9,9,12,.78);backdrop-filter:blur(12px);border:1px solid var(--line-strong);
+      font:500 .58rem "DM Mono";letter-spacing:.08em;color:white;opacity:0;transform:translateY(7px);transition:.25s;
+    }
+    .browser:hover .view-live{opacity:1;transform:none}
+
+    .manifesto{position:relative;overflow:hidden;background:#eeeae1;color:#111116}
+    .manifesto:before{
+      content:"";position:absolute;width:700px;height:700px;border-radius:50%;right:-250px;top:-320px;
+      background:radial-gradient(circle at 30% 30%,#e5ff72,#b89fff 45%,transparent 70%);opacity:.65;filter:blur(12px);
+    }
+    .manifesto .section-kicker{color:#69636c}
+    .manifesto-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:80px;position:relative;z-index:2}
+    .manifesto h2{font-size:clamp(3.4rem,7vw,7.2rem);line-height:.9;font-weight:600}
+    .manifesto-copy{padding-top:12px}
+    .manifesto-copy>p{font-size:1.22rem;line-height:1.7;color:#4f4b52;max-width:650px}
+    .principles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px}
+    .principle{padding:28px 20px 24px;border-top:1px solid rgba(17,17,22,.22)}
+    .principle span{font:500 .63rem "DM Mono";color:#857f87}.principle h3{font-size:1.15rem;letter-spacing:-.04em;margin:28px 0 9px}.principle p{margin:0;color:#6d6870;font-size:.87rem;line-height:1.55}
+
+    .process{background:#0d0d11}
+    .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:64px}
+    .step{
+      min-height:330px;padding:28px;border:1px solid var(--line);border-radius:22px;position:relative;overflow:hidden;
+      background:linear-gradient(155deg,rgba(255,255,255,.035),rgba(255,255,255,.008));transition:.35s;
+    }
+    .step:hover{transform:translateY(-6px);border-color:rgba(229,255,114,.24)}
+    .step-num{font:500 .63rem "DM Mono";color:#696570}
+    .step-mark{font-size:2rem;color:var(--acid);margin:60px 0 36px}
+    .step h3{font-size:1.35rem;letter-spacing:-.04em}
+    .step p{color:#837f89;font-size:.9rem;line-height:1.65}
+    .step:after{content:"";position:absolute;width:140px;height:140px;border-radius:50%;right:-90px;bottom:-95px;background:rgba(166,139,255,.10)}
+
+    .about-grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:90px;align-items:start}
+    .about-card{
+      position:sticky;top:120px;border:1px solid var(--line);border-radius:28px;padding:28px;background:var(--panel);overflow:hidden;
+      min-height:420px;
+    }
+    .about-card:before{
+      content:"";position:absolute;width:290px;height:290px;border-radius:50%;right:-100px;top:-100px;
+      background:radial-gradient(circle at 30% 30%,rgba(229,255,114,.85),rgba(166,139,255,.7) 38%,rgba(166,139,255,.05) 68%,transparent 70%);
+      filter:blur(4px);
+    }
+    .mini-logo{width:64px;height:64px;position:relative;z-index:2}
+    .about-card .signature{position:absolute;left:28px;bottom:28px}
+    .signature strong{display:block;font-size:1.2rem}.signature span{display:block;margin-top:5px;color:#78737d;font:500 .63rem "DM Mono";text-transform:uppercase;letter-spacing:.09em}
+    .about-copy h2{font-size:clamp(3rem,5.5vw,5.9rem);line-height:.95;font-weight:600}
+    .about-copy>p{font-size:1.04rem;line-height:1.8;color:#9b96a0;max-width:690px}
+    .skill-list{margin-top:42px;border-top:1px solid var(--line)}
+    .skill-row{display:grid;grid-template-columns:1fr auto;gap:20px;padding:18px 0;border-bottom:1px solid var(--line)}
+    .skill-row span:first-child{font-weight:600}.skill-row span:last-child{color:#706c75;font:500 .63rem "DM Mono";text-transform:uppercase;letter-spacing:.08em}
+
+    .final{
+      padding:100px 0 36px;
+    }
+    .final-box{
+      position:relative;overflow:hidden;border:1px solid var(--line);border-radius:36px;min-height:560px;padding:64px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      background:
+        radial-gradient(circle at 84% 12%,rgba(229,255,114,.16),transparent 30%),
+        radial-gradient(circle at 92% 75%,rgba(166,139,255,.15),transparent 31%),
+        #101015;
+    }
+    .final-box:after{
+      content:"L";position:absolute;right:-30px;bottom:-100px;font-size:31rem;line-height:1;font-weight:800;letter-spacing:-.1em;
+      color:rgba(255,255,255,.025);pointer-events:none;
+    }
+    .final-top{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
+    .final-top .availability{color:#c0bbc4}
+    .final h2{font-size:clamp(4rem,8vw,8.4rem);line-height:.86;font-weight:600;max-width:1040px;position:relative;z-index:2}
+    .final h2 em{font-style:normal;color:var(--acid)}
+    .final-actions{display:flex;justify-content:space-between;align-items:flex-end;gap:34px;position:relative;z-index:2}
+    .final-actions p{max-width:510px;color:#918c96;line-height:1.7;margin:0}
+    .round-link{
+      width:132px;height:132px;border-radius:50%;background:var(--ink);color:#111116;display:grid;place-items:center;text-align:center;
+      font-size:.75rem;font-weight:800;line-height:1.25;transition:.3s;
+    }
+    .round-link:hover{transform:rotate(-7deg) scale(1.04)}
+    footer{padding:30px 0 26px}
+    .footer-row{display:flex;justify-content:space-between;align-items:center;gap:30px;color:#5f5b64;font:500 .62rem "DM Mono";letter-spacing:.06em;text-transform:uppercase}
+    .footer-row strong{color:#a19ca6;font-weight:500}
+
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+    .reveal.show{opacity:1;transform:none}
+
+    @media(max-width:1100px){
+      .hero-grid{grid-template-columns:1fr}.hero-art{min-height:470px}.logo-orbit{max-width:460px}
+      .hero{padding-top:145px}.hero-footer{position:relative;margin-top:60px;bottom:auto}
+      .service-feature,.service-card{grid-column:span 6}.service-feature{grid-row:auto;min-height:560px}
+      .project,.project:nth-child(even){grid-template-columns:1fr;gap:38px}.project:nth-child(even) .project-copy,.project:nth-child(even) .browser{order:initial}
+      .project-copy{max-width:720px}.screen{height:560px}
+      .manifesto-grid,.about-grid{grid-template-columns:1fr}.about-card{position:relative;top:auto;min-height:320px}
+      .process-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:760px){
+      .wrap{width:min(var(--max),calc(100% - 28px))}
+      .nav-center,.availability{display:none}.menu{display:grid;place-items:center}
+      .hero{min-height:auto;padding:130px 0 40px}.hero-grid{gap:30px}
+      h1{font-size:clamp(3.7rem,17vw,6rem)}
+      .hero-sub{display:block}.hero-sub p{font-size:.94rem}.hero-link{margin-top:28px;width:102px;height:102px}
+      .hero-art{min-height:390px}.logo-orbit{width:330px}.hero-mark{width:135px}.orbit-label.one{right:0}.orbit-label.two{left:0}
+      .hero-footer-row{display:none}
+      section{padding:90px 0}
+      .section-head{grid-template-columns:1fr;gap:20px;margin-bottom:48px}
+      .section-title{font-size:clamp(3rem,13vw,4.8rem)}
+      .services-grid{grid-template-columns:1fr}.service-feature,.service-card{grid-column:1/-1;min-height:unset}.service-feature{padding:24px}.service-card{min-height:310px}.coming-screen{min-height:230px;padding:26px}
+      .project{padding:54px 0}.project-index{margin-bottom:30px}.project h3{font-size:3rem}
+      .browser-bar{grid-template-columns:55px 1fr 40px}.address{max-width:90%}
+      .screen{height:390px}.screen iframe{width:260%;height:260%;transform:scale(.385)}
+      .principles,.process-grid{grid-template-columns:1fr}
+      .manifesto-grid{gap:34px}.manifesto h2{font-size:clamp(3.5rem,14vw,5.2rem)}.manifesto-copy>p{font-size:1rem}
+      .about-copy h2{font-size:3.5rem}.about-grid{gap:40px}
+      .final-box{padding:36px 24px;min-height:520px;border-radius:28px}.final-top{display:block}.final h2{font-size:clamp(3.5rem,14vw,5.7rem)}
+      .final-actions{display:block}.round-link{margin-top:30px}
+      .footer-row{display:block;line-height:1.8}
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="grid-bg"></div>
+  <div class="orb"></div>
+
+  <header id="header">
+    <div class="wrap">
+      <nav>
+        <a class="brand" href="#top">
+          <img src="assets/lumnar-mark.svg" alt="Símbolo Lumnar Studio">
+          <span class="brand-name">Lumnar Studio<small>Livia Almeida · Digital Designer</small></span>
+        </a>
+        <div class="nav-center">
+          <a href="#servicos">Serviços</a>
+          <a href="#work">Projetos</a>
+          <a href="#processo">Processo</a>
+          <a href="#sobre">Sobre</a>
+        </div>
+        <div class="nav-right">
+          <span class="availability">Open to work</span>
+          <a class="nav-cta" href="#contato">Vamos conversar ↗</a>
+          <button class="menu" aria-label="Abrir menu">☰</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow"><i></i> Sites · Landing Pages · Ads · Social · Local</span>
+          <h1>
+            Design que<br>
+            <span class="outline">parece grande.</span><br>
+            E funciona.
+          </h1>
+          <div class="hero-sub">
+            <p>Presença digital com direção visual e estratégia: landing pages, sites institucionais, tráfego pago, social media e Google Meu Negócio. Tudo pensado para fazer a marca parecer mais madura, mais desejável e mais fácil de encontrar.</p>
+            <a class="hero-link" href="#work">VER<br>PROJETOS<br>↓</a>
+          </div>
+        </div>
+
+        <div class="hero-art reveal">
+          <div class="logo-orbit">
+            <span class="orbit-dot"></span>
+            <span class="orbit-label one">visual direction / 2026</span>
+            <span class="orbit-label two">crafted by Livia Almeida</span>
+            <img class="hero-mark" src="assets/lumnar-mark.svg" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="hero-footer">
+        <div class="wrap hero-footer-row">
+          <span class="scroll-cue">Selected work 01—06</span>
+          <span>Brasil · Europa · Remote</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Landing pages</span><b>✦</b><span>Sites institucionais</span><b>✦</b><span>Google Ads</span><b>✦</b><span>Meta Ads</span><b>✦</b><span>Social Media</span><b>✦</b><span>Google Meu Negócio</span><b>✦</b>
+        <span>Landing pages</span><b>✦</b><span>Sites institucionais</span><b>✦</b><span>Google Ads</span><b>✦</b><span>Meta Ads</span><b>✦</b><span>Social Media</span><b>✦</b><span>Google Meu Negócio</span><b>✦</b>
+      </div>
+    </div>
+
+    <section id="servicos" class="services">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">01 / Services</div>
+          </div>
+          <div>
+            <h2 class="section-title">Design, aquisição<br>e presença <span class="accent">digital.</span></h2>
+            <p class="section-intro">A Lumnar conecta imagem, estrutura e distribuição. A ideia não é entregar peças isoladas, mas construir uma presença digital que faça sentido da descoberta ao contato.</p>
+          </div>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-feature reveal">
+            <div class="service-top">
+              <span class="service-num">01</span>
+              <span class="service-pill">WEB</span>
+            </div>
+            <div>
+              <h3>Sites institucionais</h3>
+              <p>Sites completos para empresas que precisam apresentar marca, serviços, diferenciais e canais de contato com mais autoridade.</p>
+            </div>
+            <div class="coming-preview">
+              <div class="coming-bar">
+                <div class="coming-dots"><i></i><i></i><i></i></div>
+                <span>lumnarstudio.com / institucional</span>
+              </div>
+              <div class="coming-screen">
+                <span class="coming-kicker">CASE EM PRODUÇÃO</span>
+                <strong>Visualização<br>em breve.</strong>
+                <div class="coming-line"></div>
+                <small>Website institucional · UX · UI · Front-end</small>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-top">
+              <span class="service-num">02</span>
+              <span class="service-pill">CRO</span>
+            </div>
+            <div class="service-icon">↗</div>
+            <h3>Landing Pages</h3>
+            <p>Páginas de campanha e vendas com direção visual, copy de interface e estrutura pensada para transformar atenção em ação.</p>
+            <a href="#work">Ver projetos ↘</a>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-top">
+              <span class="service-num">03</span>
+              <span class="service-pill">MEDIA</span>
+            </div>
+            <div class="service-icon">◎</div>
+            <h3>Tráfego pago</h3>
+            <p>Estruturação e gestão de campanhas em Google Ads e Meta Ads, com foco em aquisição, geração de demanda e melhoria contínua.</p>
+            <span class="service-stack">Google Ads · Meta Ads</span>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-top">
+              <span class="service-num">04</span>
+              <span class="service-pill">SOCIAL</span>
+            </div>
+            <div class="service-icon">✦</div>
+            <h3>Social Media</h3>
+            <p>Planejamento de conteúdo, direção visual e presença social para marcas que precisam parecer consistentes também fora do site.</p>
+            <span class="service-stack">Conteúdo · Design · Calendário</span>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-top">
+              <span class="service-num">05</span>
+              <span class="service-pill">LOCAL</span>
+            </div>
+            <div class="service-icon">⌖</div>
+            <h3>Google Meu Negócio</h3>
+            <p>Configuração e otimização do perfil da empresa no Google para reforçar presença local, informações, reputação e descoberta.</p>
+            <span class="service-stack">Google Business Profile · Local</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="works">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">02 / Selected work</div>
+          </div>
+          <div>
+            <h2 class="section-title">Seis direções.<br>Uma assinatura <span class="accent">visual.</span></h2>
+            <p class="section-intro">Projetos em segmentos diferentes para mostrar versatilidade sem perder consistência: cada landing page recebe uma linguagem própria, mas a mesma atenção a ritmo, contraste, conteúdo e acabamento.</p>
+          </div>
+        </div>
+
+        
+      <article class="project reveal" style="--project-accent:#9B6CFF">
+        <div class="project-copy">
+          <div class="project-index">01</div>
+          <div class="project-meta">
+            <span>Agency / Growth</span>
+            <span>Landing Page</span>
+          </div>
+          <h3>Creative Studio</h3>
+          <p>Direção dark premium para uma agência de estratégia, design e performance. Hierarquia editorial, grids amplos e uma presença digital mais madura.</p>
+          <a class="project-link" href="https://lumnarstudio-lp-agencia2.vercel.app/" target="_blank" rel="noopener">
+            Visitar projeto ao vivo <span>↗</span>
+          </a>
+        </div>
+        <a class="browser" href="https://lumnarstudio-lp-agencia2.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir Creative Studio">
+          <div class="browser-bar">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <div class="address">lumnarstudio-lp-agencia2.vercel.app</div>
+            <div class="open-icon">↗</div>
+          </div>
+          <div class="screen">
+            <iframe src="https://lumnarstudio-lp-agencia2.vercel.app/" title="Preview de Creative Studio" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+            <div class="screen-shine"></div>
+            <div class="view-live">VIEW LIVE ↗</div>
+          </div>
+        </a>
+      </article>
+    
+
+      <article class="project reveal" style="--project-accent:#FF6A2A">
+        <div class="project-copy">
+          <div class="project-index">02</div>
+          <div class="project-meta">
+            <span>Travel / Experience</span>
+            <span>Landing Page</span>
+          </div>
+          <h3>Vértice Travel</h3>
+          <p>Landing page de turismo com linguagem editorial, fotografia em destaque e uma experiência mais boutique para transformar roteiro em desejo.</p>
+          <a class="project-link" href="https://lumnarstudio-lp-viagem.vercel.app/" target="_blank" rel="noopener">
+            Visitar projeto ao vivo <span>↗</span>
+          </a>
+        </div>
+        <a class="browser" href="https://lumnarstudio-lp-viagem.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir Vértice Travel">
+          <div class="browser-bar">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <div class="address">lumnarstudio-lp-viagem.vercel.app</div>
+            <div class="open-icon">↗</div>
+          </div>
+          <div class="screen">
+            <iframe src="https://lumnarstudio-lp-viagem.vercel.app/" title="Preview de Vértice Travel" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+            <div class="screen-shine"></div>
+            <div class="view-live">VIEW LIVE ↗</div>
+          </div>
+        </a>
+      </article>
+    
+
+      <article class="project reveal" style="--project-accent:#E7A83D">
+        <div class="project-copy">
+          <div class="project-index">03</div>
+          <div class="project-meta">
+            <span>Barber / Lifestyle</span>
+            <span>Landing Page</span>
+          </div>
+          <h3>Atelier dos Amigos</h3>
+          <p>Uma barbearia apresentada como marca de lifestyle: atmosfera escura, tipografia forte e sensação de serviço premium sem exagero visual.</p>
+          <a class="project-link" href="https://lumnarstudio-lp-barbearia.vercel.app/" target="_blank" rel="noopener">
+            Visitar projeto ao vivo <span>↗</span>
+          </a>
+        </div>
+        <a class="browser" href="https://lumnarstudio-lp-barbearia.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir Atelier dos Amigos">
+          <div class="browser-bar">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <div class="address">lumnarstudio-lp-barbearia.vercel.app</div>
+            <div class="open-icon">↗</div>
+          </div>
+          <div class="screen">
+            <iframe src="https://lumnarstudio-lp-barbearia.vercel.app/" title="Preview de Atelier dos Amigos" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+            <div class="screen-shine"></div>
+            <div class="view-live">VIEW LIVE ↗</div>
+          </div>
+        </a>
+      </article>
+    
+
+      <article class="project reveal" style="--project-accent:#B8EC53">
+        <div class="project-copy">
+          <div class="project-index">04</div>
+          <div class="project-meta">
+            <span>Clean Energy / B2C</span>
+            <span>Landing Page</span>
+          </div>
+          <h3>Nova Solar</h3>
+          <p>Projeto de energia solar com visual técnico e confiável, combinado a uma narrativa simples para reduzir fricção e aumentar percepção de segurança.</p>
+          <a class="project-link" href="https://lumnarstudio-lp-solar.vercel.app/" target="_blank" rel="noopener">
+            Visitar projeto ao vivo <span>↗</span>
+          </a>
+        </div>
+        <a class="browser" href="https://lumnarstudio-lp-solar.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir Nova Solar">
+          <div class="browser-bar">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <div class="address">lumnarstudio-lp-solar.vercel.app</div>
+            <div class="open-icon">↗</div>
+          </div>
+          <div class="screen">
+            <iframe src="https://lumnarstudio-lp-solar.vercel.app/" title="Preview de Nova Solar" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+            <div class="screen-shine"></div>
+            <div class="view-live">VIEW LIVE ↗</div>
+          </div>
+        </a>
+      </article>
+    
+
+      <article class="project reveal" style="--project-accent:#C7C7D2">
+        <div class="project-copy">
+          <div class="project-index">05</div>
+          <div class="project-meta">
+            <span>Product / E-commerce</span>
+            <span>Landing Page</span>
+          </div>
+          <h3>PulsePods</h3>
+          <p>Página de produto minimalista, com foco em desejo, benefícios, prova social e apresentação visual preparada para uma jornada de compra direta.</p>
+          <a class="project-link" href="https://lumnarstudio-portifolio.vercel.app/" target="_blank" rel="noopener">
+            Visitar projeto ao vivo <span>↗</span>
+          </a>
+        </div>
+        <a class="browser" href="https://lumnarstudio-portifolio.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir PulsePods">
+          <div class="browser-bar">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <div class="address">lumnarstudio-portifolio.vercel.app</div>
+            <div class="open-icon">↗</div>
+          </div>
+          <div class="screen">
+            <iframe src="https://lumnarstudio-portifolio.vercel.app/" title="Preview de PulsePods" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+            <div class="screen-shine"></div>
+            <div class="view-live">VIEW LIVE ↗</div>
+          </div>
+        </a>
+      </article>
+    
+
+      <article class="project reveal" style="--project-accent:#B8FF5C">
+        <div class="project-copy">
+          <div class="project-index">06</div>
+          <div class="project-meta">
+            <span>Agency / Performance</span>
+            <span>Landing Page</span>
+          </div>
+          <h3>Lumnar Digital</h3>
+          <p>Uma LP focada em aquisição e posicionamento para agência digital, equilibrando linguagem de performance, clareza comercial e estética contemporânea.</p>
+          <a class="project-link" href="https://lumnarstudio-lp-agencia1.vercel.app/" target="_blank" rel="noopener">
+            Visitar projeto ao vivo <span>↗</span>
+          </a>
+        </div>
+        <a class="browser" href="https://lumnarstudio-lp-agencia1.vercel.app/" target="_blank" rel="noopener" aria-label="Abrir Lumnar Digital">
+          <div class="browser-bar">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <div class="address">lumnarstudio-lp-agencia1.vercel.app</div>
+            <div class="open-icon">↗</div>
+          </div>
+          <div class="screen">
+            <iframe src="https://lumnarstudio-lp-agencia1.vercel.app/" title="Preview de Lumnar Digital" tabindex="-1" aria-hidden="true" loading="lazy"></iframe>
+            <div class="screen-shine"></div>
+            <div class="view-live">VIEW LIVE ↗</div>
+          </div>
+        </a>
+      </article>
+    
+      </div>
+    </section>
+
+    <section class="manifesto">
+      <div class="wrap manifesto-grid">
+        <div>
+          <div class="section-kicker">03 / Point of view</div>
+          <h2>Não é sobre<br>encher a tela.</h2>
+        </div>
+        <div class="manifesto-copy">
+          <p>É sobre conduzir o olhar. Fazer a oferta respirar. Dar peso ao que importa. E construir uma percepção de marca que pareça intencional do primeiro scroll ao último CTA.</p>
+          <div class="principles">
+            <div class="principle">
+              <span>01</span>
+              <h3>Direção antes do detalhe</h3>
+              <p>Primeiro definimos a sensação que a marca precisa transmitir. Depois cada escolha visual passa a ter um motivo.</p>
+            </div>
+            <div class="principle">
+              <span>02</span>
+              <h3>Estética com hierarquia</h3>
+              <p>Tipografia, espaço e contraste trabalham juntos para guiar a leitura sem transformar a página em um catálogo de efeitos.</p>
+            </div>
+            <div class="principle">
+              <span>03</span>
+              <h3>Responsivo de verdade</h3>
+              <p>Mobile não é uma versão espremida do desktop. É uma composição própria, com ritmo, legibilidade e interação pensados para a tela menor.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="processo" class="process">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><div class="section-kicker">04 / Process</div></div>
+          <div>
+            <h2 class="section-title">Do briefing ao<br><span class="accent">link publicado.</span></h2>
+            <p class="section-intro">Um processo enxuto para transformar referência em uma página com identidade própria — sem perder clareza, velocidade ou acabamento.</p>
+          </div>
+        </div>
+        <div class="process-grid">
+          <article class="step reveal">
+            <div class="step-num">01 / DIRECTION</div>
+            <div class="step-mark">↗</div>
+            <h3>Leitura da marca</h3>
+            <p>Objetivo, público, referências e nível de sofisticação esperado definem a direção antes do layout.</p>
+          </article>
+          <article class="step reveal">
+            <div class="step-num">02 / STRUCTURE</div>
+            <div class="step-mark">⌁</div>
+            <h3>Arquitetura da página</h3>
+            <p>Hero, narrativa, provas, seções e CTAs entram em uma ordem que faça sentido para quem está chegando.</p>
+          </article>
+          <article class="step reveal">
+            <div class="step-num">03 / DESIGN</div>
+            <div class="step-mark">✦</div>
+            <h3>Direção visual</h3>
+            <p>Tipografia, grid, imagem, cor, microdetalhes e movimento constroem personalidade sem ruído.</p>
+          </article>
+          <article class="step reveal">
+            <div class="step-num">04 / BUILD</div>
+            <div class="step-mark">⌘</div>
+            <h3>Front-end responsivo</h3>
+            <p>A experiência ganha vida no navegador com atenção ao desktop, mobile, interações e publicação.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="sobre">
+      <div class="wrap about-grid">
+        <aside class="about-card reveal">
+          <img class="mini-logo" src="assets/lumnar-mark.svg" alt="">
+          <div class="signature">
+            <strong>Livia Almeida</strong>
+            <span>Founder / Lumnar Studio</span>
+          </div>
+        </aside>
+
+        <div class="about-copy reveal">
+          <div class="section-kicker">05 / About Lumnar</div>
+          <h2 style="margin-top:22px">Um studio para marcas que não querem parecer <span style="color:var(--acid)">genéricas.</span></h2>
+          <p>A Lumnar Studio é um studio digital de Livia Almeida para marcas que querem unir presença, estética e aquisição. O trabalho passa por landing pages, sites institucionais, mídia paga, social media e presença local — com uma direção visual consistente em todos os pontos de contato.</p>
+          <p>Os projetos deste portfólio exploram linguagens diferentes — agência, turismo, barbearia, energia, produto e performance — enquanto os demais serviços ampliam essa presença para campanhas, conteúdo e descoberta local.</p>
+
+          <div class="skill-list">
+            <div class="skill-row"><span>Landing Pages & Sites Institucionais</span><span>UI / UX · Web</span></div>
+            <div class="skill-row"><span>Direção Visual</span><span>Art direction</span></div>
+            <div class="skill-row"><span>Front-end Responsivo</span><span>HTML / CSS / JS</span></div>
+            <div class="skill-row"><span>Estrutura & Copy de Interface</span><span>Content design</span></div>
+            <div class="skill-row"><span>Google Ads & Meta Ads</span><span>Paid Media</span></div>
+            <div class="skill-row"><span>Social Media</span><span>Content · Design</span></div>
+            <div class="skill-row"><span>Google Meu Negócio</span><span>Local Presence</span></div>
+            <div class="skill-row"><span>Publicação & Handoff</span><span>Web delivery</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" class="final">
+      <div class="wrap">
+        <div class="final-box reveal">
+          <div class="final-top">
+            <span class="section-kicker">06 / Next project</span>
+            <span class="availability">Disponível para oportunidades remotas</span>
+          </div>
+          <h2>Quer uma presença que pareça <em>à altura</em> da sua marca?</h2>
+          <div class="final-actions">
+            <p>Para sites, landing pages, tráfego pago, social media, Google Meu Negócio, propostas ou oportunidades, fale com a Livia pelo mesmo canal em que este portfólio foi compartilhado. Os projetos de landing page acima podem ser acessados ao vivo.</p>
+            <a class="round-link" href="#work">REVER<br>PROJETOS<br>↑</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>© 2026 Lumnar Studio</span>
+      <span><strong>Livia Almeida</strong> · Landing Pages & Digital Design</span>
+      <span>Brasil · Europa · Remote</span>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.querySelector('#header');
+    addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 24));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.10});
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const menu = document.querySelector('.menu');
+    menu.addEventListener('click', () => {
+      let pop = document.querySelector('.mobile-pop');
+      if(pop){ pop.remove(); return; }
+      pop = document.createElement('div');
+      pop.className = 'mobile-pop';
+      pop.innerHTML = '<a href="#servicos">Serviços</a><a href="#work">Projetos</a><a href="#processo">Processo</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a>';
+      Object.assign(pop.style,{
+        position:'fixed',top:'72px',left:'14px',right:'14px',zIndex:'100',
+        padding:'18px',border:'1px solid rgba(255,255,255,.12)',borderRadius:'18px',
+        background:'rgba(13,13,17,.96)',backdropFilter:'blur(18px)',display:'grid',gap:'8px',
+        boxShadow:'0 25px 60px rgba(0,0,0,.38)'
+      });
+      [...pop.children].forEach(a => Object.assign(a.style,{padding:'14px',borderRadius:'12px',background:'rgba(255,255,255,.04)',fontWeight:'700'}));
+      pop.addEventListener('click',()=>pop.remove());
+      document.body.appendChild(pop);
+    });
+
+    // Subtle parallax only on devices with a precise pointer.
+    if(matchMedia('(pointer:fine)').matches){
+      const art = document.querySelector('.logo-orbit');
+      addEventListener('mousemove',(e)=>{
+        const x=(e.clientX/innerWidth-.5)*10;
+        const y=(e.clientY/innerHeight-.5)*10;
+        art.style.transform=`translate3d(${x}px,${y}px,0)`;
+      });
+    }
+  </script>
+</body>
+</html>
